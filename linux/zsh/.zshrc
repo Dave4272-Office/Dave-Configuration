@@ -108,11 +108,13 @@ plugins=(
   zsh-z
 )
 
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
+source $ZSH/oh-my-zsh.sh
+
 # Modules
 autoload -U zmv
 autoload -U compinit && compinit #Keep at last
-
-source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.zshth.zsh ]] || source ~/.zshth.zsh
