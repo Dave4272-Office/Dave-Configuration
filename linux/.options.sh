@@ -29,39 +29,80 @@
 
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --height=80%"
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
 export CHEAT_USE_FZF=true
-export PATH=$GOBIN:$PATH
 
+# golang paths
+if [ -f $HOME/go ] ; then
+    export GOPATH=$HOME/go
+    export GOBIN=$GOPATH/bin
+    export PATH=$GOBIN:$PATH
+fi
+
+# nvm paths
 [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/e/Tools/nvm"
-[ -f /usr/share/nvm/nvm.sh ] && source /usr/share/nvm/nvm.sh
-[ -f /usr/share/nvm/bash_completion ] && source /usr/share/nvm/bash_completion
-[ -f /usr/share/nvm/install-nvm-exec ] && source /usr/share/nvm/install-nvm-exec
+[ -e "$NVM_DIR" ] || mkdir -p "$NVM_DIR"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [ -f /usr/share/nvm ] ; then
+    [ -f /usr/share/nvm/nvm.sh ] && source /usr/share/nvm/nvm.sh
+    [ -f /usr/share/nvm/bash_completion ] && source /usr/share/nvm/bash_completion
+    if [ -e "$NVM_DIR/nvm.sh" ] ; then
+        rm -f "$NVM_DIR/nvm.sh"
+        ln -s /usr/share/nvm/nvm.sh "$NVM_DIR/nvm.sh"
+    else
+        ln -s /usr/share/nvm/nvm.sh "$NVM_DIR/nvm.sh"
+    fi
+    if [ -e "$NVM_DIR/nvm-exec" ] ; then
+        rm -f "$NVM_DIR/nvm-exec"
+        ln -s /usr/share/nvm/nvm-exec "$NVM_DIR/nvm-exec"
+    else
+        ln -s /usr/share/nvm/nvm-exec "$NVM_DIR/nvm-exec"
+    fi
+elif [ -f $HOME/.nvm ] ; then
+    [ -f $HOME/.nvm/nvm.sh ] && source $HOME/.nvm/nvm.sh
+    [ -f $HOME/.nvm/bash_completion ] && source $HOME/.nvm/bash_completion
+    if [ -e "$NVM_DIR/nvm.sh" ] ; then
+        rm -f "$NVM_DIR/nvm.sh"
+        ln -s $HOME/.nvm/nvm.sh "$NVM_DIR/nvm.sh"
+    else
+        ln -s $HOME/.nvm/nvm.sh "$NVM_DIR/nvm.sh"
+    fi
+    if [ -e "$NVM_DIR/nvm-exec" ] ; then
+        rm -f "$NVM_DIR/nvm-exec"
+        ln -s $HOME/.nvm/nvm-exec "$NVM_DIR/nvm-exec"
+    else
+        ln -s $HOME/.nvm/nvm-exec "$NVM_DIR/nvm-exec"
+    fi
+else
+    unset NVM_DIR
+fi
 
+# yarn Paths
 export PATH=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 export PATH=$HOME/bin:$PATH
 
+# additional paths
+export PATH=/sbin:$PATH
+export PATH=/usr/sbin:$PATH
+export PATH=/usr/local/sbin:$PATH
+
+export PATH=/usr/games:$PATH
+export PATH=/usr/local/games:$PATH
+export PATH=/usr/share/games:$PATH
+
+export PATH=/bin:$PATH
+export PATH=/usr/bin:$PATH
+export PATH=/usr/local/bin:$PATH
+
+export PATH=/usr/sandbox/:$PATH
+
+export PATH=/snap/bin:$PATH
+
+export PATH=~/.local/bin:$PATH
+
+# use GPGagent in place of ssh agent
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
-
-export PATH=/sbin:$PATH
-export PATH=/usr/sbin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=/usr/share/games:$PATH
-export PATH=/usr/games:$PATH
-export PATH=/usr/local/games:$PATH
-export PATH=/bin:$PATH
-export PATH=/usr/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/sandbox/:$PATH
-export PATH=/snap/bin:$PATH
-export PATH=~/.local/bin:$PATH
