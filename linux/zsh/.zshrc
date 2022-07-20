@@ -21,11 +21,6 @@ setopt hist_ignore_dups
 setopt hist_expire_dups_first
 
 SAVEHIST=99999
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -86,37 +81,54 @@ SAVEHIST=99999
 # golang npm virtualenv magic-enter ssh-agent z fasd
 # history-substring-search
 plugins=(
+  adb
   alias-tips
+  ansible
   archlinux
+  #asdf
+  auto-notify
   colored-man-pages
   colorize
   common-aliases
+  debian
+  direnv
   dirhistory
+  dnf
+  docker
   docker-compose
   extract
-  fast-syntax-highlighting
-  fzf
+  F-Sy-H
+  fasd
+  fzf-tab
+  gh
   git
+  git-extra-commands
   globalias
+  gpg-agent
+  magic-enter
   pip
+  supervisor
+  suse
   systemd
   vscode
   web-search
+  yum
+  zsh-autocomplete
+  zsh-autopair
   zsh-autosuggestions
   zsh-completions
-  zsh-syntax-highlighting
   zsh-z
+  fzf                         # for fzf ^R binding
 )
 
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-
-source $ZSH/oh-my-zsh.sh
+#fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # Modules
 autoload -U zmv
 autoload -U compinit && compinit #Keep at last
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source $ZSH/oh-my-zsh.sh
+
 [[ ! -f ~/.zshth.zsh ]] || source ~/.zshth.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
