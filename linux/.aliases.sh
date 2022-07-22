@@ -1,5 +1,7 @@
+#!/bin/bash
 # snap alias
-if [ "$(command -v snap)" ]; then
+# trunk-ignore(shellcheck/SC2312)
+if [[ -n "$(command -v snap)" ]]; then
     alias snls='snap list'
     alias sndiff='snap changes'
     alias snupg='sudo snap refresh'

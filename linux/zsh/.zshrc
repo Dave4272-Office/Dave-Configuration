@@ -5,9 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -29,9 +26,6 @@ SAVEHIST=99999
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
 # Uncomment the following line to automatically update without prompting.
 # DISABLE_UPDATE_PROMPT="true"
 
@@ -40,9 +34,6 @@ SAVEHIST=99999
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
@@ -68,18 +59,7 @@ SAVEHIST=99999
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-
-# adb cloudfoundry codeclimate git-flow gitignore git-lfs
-# golang npm virtualenv magic-enter ssh-agent z fasd
-# history-substring-search
+# Plugins
 plugins=(
   adb
   alias-tips
@@ -121,20 +101,25 @@ plugins=(
   fzf                         # for fzf ^R binding
 )
 
-#fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-
 # Modules
 autoload -U zmv
 autoload -U compinit && compinit #Keep at last
 
 source $ZSH/oh-my-zsh.sh
 
+# Theme configuration.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Theme customizations
 [[ ! -f ~/.zshth.zsh ]] || source ~/.zshth.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 # options
-[ -f ~/.options.sh ] && source ~/.options.sh
+[[ -f ~/.options.sh ]] && source ~/.options.sh
 
 # aliases
-[ -f ~/.aliases.sh ] && source ~/.aliases.sh
+[[ -f ~/.aliases.sh ]] && source ~/.aliases.sh
+
+# functions
+[[ -f ~/.functions.sh ]] && source ~/.functions.sh

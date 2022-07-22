@@ -1,9 +1,10 @@
+#!/bin/bash
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
-cd ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins
+cd "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins"
 
 git submodule add -f https://github.com/djui/alias-tips
 git submodule add -f https://github.com/zsh-users/zsh-autosuggestions
@@ -17,11 +18,9 @@ git submodule add -f https://github.com/Aloxaf/fzf-tab
 git submodule add -f https://github.com/hlissner/zsh-autopair
 git submodule update --init
 
-pip install thefuck
-
 # install required font
 
 # install zsh theme
-cd ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/themes/
+cd "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/themes/"
 git submodule add -f https://github.com/romkatv/powerlevel10k
 git submodule update --init
