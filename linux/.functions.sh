@@ -1,84 +1,106 @@
 #!/bin/bash
-foreground_general_eight() {
-	# Foreground colors
-	# General 8 colors
+if [[ ${SHELL} == *"bash"* ]]; then
+	[[ -f ~/.functions-completion.bash ]] && source ~/.functions-completion.bash
+elif [[ ${SHELL} == *"zsh"* ]]; then
+	[[ -f ~/.functions-completion.zsh ]] && source ~/.functions-completion.zsh
+fi
+
+____foreground_general_eight() {
+	printf "General 8 Colors, available from 8 color terminals:\n"
+	codetext='\e[38;5;''N''m'
+	printf "\tCan also be used as %s for 256 color terminals\n" "${codetext}"
+	printf "\t\tWhere N is the color number from {0 to 7}\n\n"
 	for i in {0..1}; do
-    	for j in {0..3}; do
+		for j in {0..3}; do
 			code=$(echo "30+${i}*4+${j}" | bc)
 			codetext='\e['${code}'m'
 			printf "%s\t\t\e[%smText\e[0m\t" "${codetext}" "${code}"
 		done
 		echo
 	done
+	return 0
 }
 
-foreground_extended_eight() {
-	# Foreground colors
-	# Extended 8 colors
+____foreground_extended_eight() {
+	printf "Extended 8 Colors, available from 16 color terminals:\n"
+	codetext='\e[38;5;''N''m'
+	printf "\tCan also be used as %s for 256 color terminals\n" "${codetext}"
+	printf "\t\tWhere N is the color number from {8 to 15}\n\n"
 	for i in {0..1}; do
-    	for j in {0..3}; do
+		for j in {0..3}; do
 			code=$(echo "30+${i}*4+${j}" | bc)
 			codetext='\e['${code}';1m'
 			printf "%s\t\e[%s;1mText\e[0m\t" "${codetext}" "${code}"
 		done
 		echo
 	done
+	return 0
 }
 
-foreground_all() {
-	# Foreground colors
-	# 256 colors
+____foreground_rest() {
+	echo "Rest of the colors, available from 256 color terminals:"
+	echo
 	for i in {4..63}; do
-    	for j in {0..3}; do
+		for j in {0..3}; do
 			code=$(echo "${i}*4+${j}" | bc)
 			codetext='\e[38;5;'${code}'m'
 			printf "%s\t\e[38;5;%smText\e[0m\t" "${codetext}" "${code}"
 		done
 		echo
 	done
+	return 0
 }
 
-background_extended_eight() {
-	# Background colors
-	# General 8 colors
+____background_extended_eight() {
+	printf "Extended 8 Colors, available from 16 color terminals:\n"
+	codetext='\e[48;5;''N''m'
+	printf "\tCan also be used as %s for 256 color terminals\n" "${codetext}"
+	printf "\t\tWhere N is the color number from {8 to 15}\n\n"
 	for i in {0..1}; do
-    	for j in {0..3}; do
+		for j in {0..3}; do
 			code=$(echo "40+${i}*4+${j}" | bc)
 			codetext='\e['${code}'m'
 			printf "%s\t\t\e[%smText\e[0m\t" "${codetext}" "${code}"
 		done
 		echo
 	done
+	return 0
 }
 
-background_general_eight() {
-	# Background colors
-	# Extended 8 colors
+____background_general_eight() {
+	printf "General 8 Colors, available from 8 color terminals:\n"
+	codetext='\e[48;5;''N''m'
+	printf "\tCan also be used as %s for 256 color terminals\n" "${codetext}"
+	printf "\t\tWhere N is the color number from {0 to 7}\n\n"
 	for i in {0..1}; do
-    	for j in {0..3}; do
+		for j in {0..3}; do
 			code=$(echo "40+${i}*4+${j}" | bc)
 			codetext='\e['${code}';1m'
 			printf "%s\t\e[%s;1mText\e[0m\t" "${codetext}" "${code}"
 		done
 		echo
 	done
+	return 0
 }
 
-background_all() {
-	# Background colors
-	# 256 colors
+____background_rest() {
+	echo "Rest of the colors, available from 256 color terminals:"
+	echo
 	for i in {4..63}; do
-    	for j in {0..3}; do
+		for j in {0..3}; do
 			code=$(echo "${i}*4+${j}" | bc)
 			codetext='\e[48;5;'${code}'m'
 			printf "%s\t\e[48;5;%smText\e[0m\t" "${codetext}" "${code}"
 		done
 		echo
 	done
+	return 0
 }
 
-special_formatting() {
+____special_formatting() {
 	# Special formatting
+	echo "Special formatting:"
+	echo
 	codetext='\e[1m'
 	printf "%s\t\e[1mTest\e[0m Bold\n" "${codetext}"
 	codetext='\e[2m'
@@ -95,7 +117,7 @@ special_formatting() {
 	printf "%s\t\e[8mTest\e[0m Hide\n" "${codetext}"
 	codetext='\e[9m'
 	printf "%s\t\e[9mTest\e[0m Strike\n" "${codetext}"
-
+	echo
 	echo "Combine properties as follows:"
 	printf "\tWay 1:\n"
 	codetext='\e[1;3;4;5;7;9m'
@@ -103,69 +125,108 @@ special_formatting() {
 	printf "\tWay 2:\n"
 	codetext='\e[1m\e[3m\e[4m\e[5m\e[7m\e[9m'
 	printf "\t\t%s\t\e[1m\e[3m\e[4m\e[5m\e[7m\e[9mTest\e[0m\n" "${codetext}"
+	return 0
+}
+
+____foreground() {
+	if [[ -z "${1}" ]]; then
+		____colors_usage
+		return 1
+	elif [[ "$1" =~ ^[0-9]*$ ]] && [[ "$1" -ge 0 ]] && [[ "$1" -le 255 ]]; then
+		codetext='\e[38;5;'${1}'m'
+		printf "%s\t\e[38;5;%smText\e[0m\n" "${codetext}" "${1}"
+		return 0
+	else
+		switch=$1
+		case ${switch} in
+		"g"|"general")
+			____foreground_general_eight
+			;;
+		"e"|"extended")
+			____foreground_extended_eight
+			;;
+		"a"|"all")
+			____foreground_general_eight
+			echo
+			____foreground_extended_eight
+			echo
+			____foreground_rest
+			;;
+		*)
+			____colors_usage
+			return 1
+		esac
+	fi
+}
+
+____background() {
+	if [[ -z "${1}" ]]; then
+		____colors_usage
+		return 1
+	elif [[ "$1" =~ ^[0-9]*$ ]] && [[ "$1" -ge 0 ]] && [[ "$1" -le 255 ]]; then
+		codetext='\e[48;5;'${1}'m'
+		printf "%s\t\e[48;5;%smText\e[0m\n" "${codetext}" "${1}"
+		return 0
+	else
+		switch=$1
+		case ${switch} in
+		"g"|"general")
+			____background_general_eight
+			;;
+		"e"|"extended")
+			____background_extended_eight
+			;;
+		"a"|"all")
+			____background_general_eight
+			echo
+			____background_extended_eight
+			echo
+			____background_rest
+			;;
+		*)
+			____colors_usage
+			return 1
+		esac
+	fi
 }
 
 colors() {
-	case $1 in
-		"foreground")
-			if [[ -z $2 ]]; then
-				foreground_all
-			else
-				case $2 in
-					"general")
-						foreground_general_eight
-						;;
-					"extended")
-						foreground_extended_eight
-						;;
-					"all")
-						foreground_all
-						;;
-					*)
-						echo "Usage: $0 foreground"
-						echo "Usage: $0 foreground all"
-						echo "Usage: $0 foreground extended"
-						echo "Usage: $0 foreground general"
-						;;
-				esac
-			fi
+	if [[ -z "${1}" ]]; then
+		____colors_usage
+		return 1
+	elif [[ -z "${2}" ]] && [[ "$1" =~ ^[0-9]*$ ]] && [[ "$1" -ge 0 ]] && [[ "$1" -le 255 ]]; then
+		codetext='\e[38;5;'${1}'m'
+		codetext1='\e[48;5;'${1}'m'
+		printf "%s\t\e[38;5;%smText\e[0m\t\e[48;5;%smText\e[0m %s\n" "${codetext}" "${1}" "${1}" "${codetext1}"
+		return 0
+	elif [[ "$1" =~ ^[0-9]*$ ]] && [[ "$1" -ge 0 ]] && [[ "$1" -le 255 ]] && [[ "$2" =~ ^[0-9]*$ ]] && [[ "$2" -ge 0 ]] && [[ "$2" -le 255 ]]; then
+		codetext='\e[38;5;'${1}'m\e[48;5;'${2}'m'
+		printf "%s\t\e[38;5;%sm\e[48;5;%smText\e[0m\n" "${codetext}" "${1}" "${2}"
+		codetext='\e[38;5;'${2}'m\e[48;5;'${1}'m'
+		printf "%s\t\e[38;5;%sm\e[48;5;%smText\e[0m\n" "${codetext}" "${2}" "${1}"
+		return 0
+	else
+		case $1 in
+		"f"|"foreground")
+			____foreground "$2"
 			;;
-		"background")
-			if [[ -z $2 ]]; then
-				foreground_all
-			else
-				case $2 in
-					"general")
-						background_general_eight
-						;;
-					"extended")
-						background_extended_eight
-						;;
-					"all")
-						background_all
-						;;
-					*)
-						echo "Usage: $0 background"
-						echo "Usage: $0 background all"
-						echo "Usage: $0 background extended"
-						echo "Usage: $0 background general"
-						;;
-				esac
-			fi
+		"b"|"background")
+			____background "$2"
 			;;
-		"special")
-			special_formatting
+		"s"|"special")
+			____special_formatting
+			;;
+		"-h"|"--help")
+			____colors_usage
+			return 0
 			;;
 		*)
-			echo "Usage: $0 background"
-			echo "Usage: $0 background all"
-			echo "Usage: $0 background extended"
-			echo "Usage: $0 background general"
-			echo "Usage: $0 foreground"
-			echo "Usage: $0 foreground all"
-			echo "Usage: $0 foreground extended"
-			echo "Usage: $0 foreground general"
-			echo "Usage: $0 special"
-			;;
-	esac
+			____colors_usage
+			return 1
+		esac
+	fi
+}
+
+____colors_usage() {
+	echo "TODO"
 }
