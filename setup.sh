@@ -1,10 +1,12 @@
 #!/bin/bash
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+ZSH="${HOME}/.oh-my-zsh"
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
-cd "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins"
+cd "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins" || exit
 
 git submodule add -f https://github.com/djui/alias-tips
 git submodule add -f https://github.com/zsh-users/zsh-autosuggestions
@@ -21,6 +23,6 @@ git submodule update --init
 # install required font
 
 # install zsh theme
-cd "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/themes/"
+cd "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/themes/" || exit
 git submodule add -f https://github.com/romkatv/powerlevel10k
 git submodule update --init

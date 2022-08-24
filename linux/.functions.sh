@@ -1,9 +1,10 @@
 #!/bin/bash
-if [[ ${SHELL} == *"bash"* ]]; then
-	[[ -f ~/.functions-completion.bash ]] && source ~/.functions-completion.bash
-elif [[ ${SHELL} == *"zsh"* ]]; then
-	[[ -f ~/.functions-completion.zsh ]] && source ~/.functions-completion.zsh
-fi
+# Place the completions in respective directories
+# if [[ ${SHELL} == *"bash"* ]]; then
+# 	[[ -f ~/.functions-completion.bash ]] && source ~/.functions-completion.bash
+# elif [[ ${SHELL} == *"zsh"* ]]; then
+# 	[[ -f ~/.functions-completion.zsh ]] && source ~/.functions-completion.zsh
+# fi
 
 ____foreground_general_eight() {
 	printf "General 8 Colors, available from 8 color terminals:\n"

@@ -19,7 +19,7 @@
 #. ${HOME}/.asdf/asdf.sh
 #. ${HOME}/.asdf/completions/asdf.bash
 
-export FZF_DEFAULT_COMMAND='fdfind --type f'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --height=80%"
 export CHEAT_USE_FZF=true
 
