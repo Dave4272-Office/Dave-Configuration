@@ -31,14 +31,14 @@ if [[ -f ${HOME}/go ]]; then
 fi
 
 # nvm paths
-[[ -z "${workspace}" ]] && export workspace="${HOME}/e"
+[[ -z "${workspace}" ]] && export workspace="/E:"
 if [[ -d "${workspace}" ]]; then
-    [[ -z "${NVM_DIR}" ]] && export NVM_DIR="${workspace}/Tools/nvm"
+    [[ -z "${NVM_DIR}" ]] && export NVM_DIR="/home/dave/.nvm"
     [[ -e "${NVM_DIR}" ]] || mkdir -p "${NVM_DIR}"
 fi
 
 if [[ -n "${NVM_DIR}" ]]; then
-    if [[ -f /usr/share/nvm ]]; then
+    if [[ -d /usr/share/nvm ]]; then
         [[ -f /usr/share/nvm/nvm.sh ]] && source /usr/share/nvm/nvm.sh
         [[ -f /usr/share/nvm/bash_completion ]] && source /usr/share/nvm/bash_completion
         ln -sf /usr/share/nvm/nvm.sh "${NVM_DIR}/nvm.sh"
@@ -76,5 +76,8 @@ export PATH=/usr/sandbox/:${PATH}
 export PATH=/snap/bin:${PATH}
 
 export PATH=~/.local/bin:${PATH}
+export PATH=~/.dotnet/tools:${PATH}
+
+export GCM_CREDENTIAL_STORE=secretservice
 
 eval "$(dircolors ~/.dircolors)" || true;
