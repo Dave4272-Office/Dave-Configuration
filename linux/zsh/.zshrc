@@ -8,6 +8,8 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="${ZSH:-~/.oh-my-zsh}/custom"
+export UPDATE_ZSH_DAYS=3
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -60,13 +62,16 @@ SAVEHIST=99999
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
+# options
+[[ -f ~/.options.sh ]] && source ~/.options.sh
+
 # Plugins
 plugins=(
-  adb
+  autoupdate
   alias-tips
   ansible
   archlinux
-  #asdf
+  asdf
   auto-notify
   colored-man-pages
   colorize
@@ -77,17 +82,25 @@ plugins=(
   dnf
   docker
   docker-compose
+  podman
   extract
   F-Sy-H
   fasd
-  fzf-tab
   gh
   git
   git-extra-commands
   globalias
   gpg-agent
   magic-enter
+# this plugin is created with the following commands
+# mkdir $ZSH_CUSTOM/plugins/pipx
+# register-python-argcomplete pipx > $ZSH_CUSTOM/plugins/pipx/_pipx
+  pipx
   pip
+# this plugin is created with the following commands
+# mkdir $ZSH_CUSTOM/plugins/poetry
+# poetry completions zsh > $ZSH_CUSTOM/plugins/poetry/_poetry
+  poetry
   supervisor
   suse
   systemd
@@ -97,14 +110,16 @@ plugins=(
   zsh-autocomplete
   zsh-autopair
   zsh-autosuggestions
-  zsh-completions
   zsh-z
+  fzf-tab
   fzf                         # for fzf ^R binding
 )
 
 # Modules
 autoload -U zmv
-autoload -U compinit && compinit #Keep at last
+# autoload -U compinit && compinit #Keep at last
+
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,11 +131,35 @@ source $ZSH/oh-my-zsh.sh
 
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
-# options
-[[ -f ~/.options.sh ]] && source ~/.options.sh
+eval "$(dircolors ~/.dircolors)" || true;
 
 # aliases
 [[ -f ~/.aliases.sh ]] && source ~/.aliases.sh
 
 # functions
 [[ -f ~/.functions.sh ]] && source ~/.functions.sh
+
+# export PATH=${PATH}:$(asdf where python)/bin
+
+fastfetch --pipe false
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/dave/.dart-cli-completion/zsh-config.zsh ]] && . /home/dave/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+

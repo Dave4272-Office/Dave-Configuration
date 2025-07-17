@@ -1,0 +1,103 @@
+# ######################################################
+# ##              Channel Configuration               ##
+# ######################################################
+channels:
+  - defaults
+  - conda-forge
+
+# # channel_settings (sequence: map)
+# #   env var string delimiter: ','
+# #   A list of mappings that allows overriding certain settings for a
+# #   single channel. Each list item should include at least the "channel"
+# #   key and the setting you would like to override.
+# # 
+# channel_settings: []
+
+# # override_channels_enabled (bool)
+# #   Permit use of the --override-channels command-line flag.
+# # 
+# override_channels_enabled: true
+
+# # custom_channels (map: primitive)
+# #   A map of key-value pairs where the key is a channel name and the value
+# #   is a channel location. Channels defined here override the default
+# #   'channel_alias' value. The channel name (key) is not included in the
+# #   channel location (value).  For example, to override the location of
+# #   the 'conda-forge' channel where the url to repodata is
+# #   https://anaconda-repo.dev/packages/conda-forge/linux-64/repodata.json,
+# #   add an entry 'conda-forge: https://anaconda-repo.dev/packages'.
+# # 
+# custom_channels:
+#   pkgs/pro: https://repo.anaconda.com
+
+# # custom_multichannels (map: sequence)
+# #   A multichannel is a metachannel composed of multiple channels. The two
+# #   reserved multichannels are 'defaults' and 'local'. The 'defaults'
+# #   multichannel is customized using the 'default_channels' parameter. The
+# #   'local' multichannel is a list of file:// channel locations where
+# #   conda-build stashes successfully-built packages.  Other multichannels
+# #   can be defined with custom_multichannels, where the key is the
+# #   multichannel name and the value is a list of channel names and/or
+# #   channel urls.
+# # 
+# custom_multichannels: {}
+
+# # migrated_channel_aliases (sequence: primitive)
+# #   env var string delimiter: ','
+# #   A list of previously-used channel_alias values. Useful when switching
+# #   between different Anaconda Repository instances.
+# # 
+# migrated_channel_aliases: []
+
+# # migrated_custom_channels (map: primitive)
+# #   A map of key-value pairs where the key is a channel name and the value
+# #   is the previous location of the channel.
+# # 
+# migrated_custom_channels: {}
+
+# # add_anaconda_token (bool)
+# #   aliases: add_binstar_token
+# #   In conjunction with the anaconda command-line client (installed with
+# #   `conda install anaconda-client`), and following logging into an
+# #   Anaconda Server API site using `anaconda login`, automatically apply a
+# #   matching private token to enable access to private packages and
+# #   channels.
+# # 
+# add_anaconda_token: true
+
+# # allow_non_channel_urls (bool)
+# #   Warn, but do not fail, when conda detects a channel url is not a valid
+# #   channel.
+# # 
+# allow_non_channel_urls: false
+
+# # restore_free_channel (bool)
+# #   "                 Add the "free" channel back into defaults, behind
+# #   "main" in priority. The "free"                 channel was removed
+# #   from the collection of default channels in conda 4.7.0.
+# # 
+# restore_free_channel: false
+
+
+# ######################################################
+# ##            Basic Conda Configuration             ##
+# ######################################################
+envs_dirs:
+  - /media/dave/Workspace/conda/envs
+ 
+pkgs_dirs:
+  - /media/dave/Workspace/conda/pkgs
+
+# ######################################################
+# ##  Output, Prompt, and Flow Control Configuration  ##
+# ######################################################
+auto_activate_base: false
+
+# # json (bool)
+# #   Ensure all output written to stdout is structured json.
+# # 
+# json: false
+
+notify_outdated_conda: true
+
+show_channel_urls: true

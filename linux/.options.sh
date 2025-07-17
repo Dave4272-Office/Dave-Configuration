@@ -16,15 +16,12 @@
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-#. ${HOME}/.asdf/asdf.sh
-#. ${HOME}/.asdf/completions/asdf.bash
-
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --height=80%"
 export CHEAT_USE_FZF=true
 
 # golang paths
-if [[ -f ${HOME}/go ]]; then
+if [[ -d ${HOME}/go ]]; then
     export GOPATH=${HOME}/go
     export GOBIN=${GOPATH}/bin
     export PATH=${GOBIN}:${PATH}
@@ -32,26 +29,6 @@ fi
 
 # nvm paths
 [[ -z "${workspace}" ]] && export workspace="/E:"
-if [[ -d "${workspace}" ]]; then
-    [[ -z "${NVM_DIR}" ]] && export NVM_DIR="/home/dave/.nvm"
-    [[ -e "${NVM_DIR}" ]] || mkdir -p "${NVM_DIR}"
-fi
-
-if [[ -n "${NVM_DIR}" ]]; then
-    if [[ -d /usr/share/nvm ]]; then
-        [[ -f /usr/share/nvm/nvm.sh ]] && source /usr/share/nvm/nvm.sh
-        [[ -f /usr/share/nvm/bash_completion ]] && source /usr/share/nvm/bash_completion
-        ln -sf /usr/share/nvm/nvm.sh "${NVM_DIR}/nvm.sh"
-        ln -sf /usr/share/nvm/nvm-exec "${NVM_DIR}/nvm-exec"
-    elif [[ -f ${HOME}/.nvm ]]; then
-        [[ -f ${HOME}/.nvm/nvm.sh ]] && source "${HOME}/.nvm/nvm.sh"
-        [[ -f ${HOME}/.nvm/bash_completion ]] && source "${HOME}/.nvm/bash_completion"
-        ln -sf "${HOME}/.nvm/nvm.sh" "${NVM_DIR}/nvm.sh"
-        ln -sf "${HOME}/.nvm/nvm-exec" "${NVM_DIR}/nvm-exec"
-    else
-        unset NVM_DIR
-    fi
-fi
 
 # yarn Paths
 export PATH=${HOME}/.yarn/bin:${HOME}/.config/yarn/global/node_modules/.bin:${PATH}
@@ -77,7 +54,23 @@ export PATH=/snap/bin:${PATH}
 
 export PATH=~/.local/bin:${PATH}
 export PATH=~/.dotnet/tools:${PATH}
+export PATH=~/.odrive-agent/bin/:${PATH}
+export PATH=/media/dave/Workspace/Codes/GraphQL/telosys-cli-4.1.1-001/:${PATH}
+
+export PATH=/home/dave/.ghcup/bin/:${PATH}
+
+export ASDF_DATA_DIR=${HOME}/.asdf
+export PATH=${ASDF_DATA_DIR}/shims:${PATH}
+
+export PATH=${HOME}/.claude/local:${PATH}
+
+# export PATH=~/.local/share/gem/ruby/3.0.0/bin:${PATH}
 
 export GCM_CREDENTIAL_STORE=secretservice
+export DOCKER_HOST=unix:///run//user//1000//podman//podman.sock
+export JAVA_HOME=/usr/lib/jvm/default-runtime
+export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
-eval "$(dircolors ~/.dircolors)" || true;
+export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+

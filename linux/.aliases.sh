@@ -22,3 +22,7 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano -w PKGBUILD'
 alias more=less
+
+alias egrep='grep -E'
+
+alias bvmrm='bvm remove --all --keep-latest-versions 2'
