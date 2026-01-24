@@ -76,10 +76,10 @@ plugins=(
   colored-man-pages
   colorize
   common-aliases
-  debian
+  # debian
   direnv
   dirhistory
-  dnf
+  # dnf
   docker
   docker-compose
   podman
