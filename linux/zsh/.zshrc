@@ -163,3 +163,11 @@ unset __conda_setup
 [[ -f /home/dave/.dart-cli-completion/zsh-config.zsh ]] && . /home/dave/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
 
+
+# pnpm
+export PNPM_HOME="/home/dave/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
